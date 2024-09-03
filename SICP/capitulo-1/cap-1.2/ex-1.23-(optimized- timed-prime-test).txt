@@ -1,0 +1,60 @@
+-------------------------------- Exercise 1.23 ---------------------------------   
+The smallest-divisor procedure shown at the start of this section does lots of 
+needless testing: After it checks to see if the number is divisible by 2 there 
+is no point in checking to see if it is divisible by any larger even numbers. 
+This suggests that the values used for test-divisor should not be 2, 3, 4, 5, 
+6, ..., but rather 2, 3, 5, 7, 9, .... To implement this change, define a 
+procedure next that returns 3 if its input is equal to 2 and otherwise returns 
+its input plus 2. Modify the smallest-divisor procedure to use 
+(next test-divisor) instead of (+ test-divisor 1). With timed-prime-test 
+incorporating this modified version of smallest-divisor, run the test for each 
+of the 12 primes found in exercise 1.22. Since this modification halves the 
+number of test steps, you should expect it to run about twice as fast. Is this 
+expectation confirmed? If not, what is the observed ratio of the speeds of the 
+two algorithms, and how do you explain the fact that it is different from 2?
+
+CODE
+(define (smallest-divisor n)
+  (find-divisor n 2))
+(define (find-divisor n test-divisor)
+  (cond ((> (square test-divisor) n) n)
+        ((divides? test-divisor n) test-divisor)
+        (else (find-divisor n (next test-divisor)))))
+(define (divides? a b)
+  (= (remainder b a) 0))
+(define (square x) (* x x))
+(define (prime? n)
+  (= n (smallest-divisor n)))
+
+(define (next test-divisor)
+  (if (= test-divisor 2)
+      3
+      (+ test-divisor 2)))
+
+> (three-prime 1000)
+1009 *** 5 vs 8 --> 38%
+1013 *** 4 vs 4 --> 0%
+1019 *** 4 vs 4 --> 0%
+> (three-prime 10000)
+10007 *** 8 vs 11 --> 27%
+10009 *** 6 vs 8 --> 25%
+10037 *** 8 vs 7 --> -14%
+> (three-prime 100000)
+100003 *** 20 vs 24 --> 17%
+100019 *** 17 vs 22 --> 23%
+100043 *** 17 vs 22 --> 23%
+> (three-prime 1000000)
+1000003 *** 52 vs 69 --> 25%
+1000033 *** 50 vs 70 --> 29%
+1000037 *** 51 vs 68 --> 25%
+
+Mejora Promedio --> 18%
+Solo se observa casi un 20% de mejora vs el 50% que se esperaría por reducir los 
+pasos a la mitad. Se me ocurre como una posible explicacion que debajo del capó 
+es mas facil calcular el resto de un numero par que de uno impar, por lo que eso 
+produciría una diferencia del costo que tiene calcular si un numero es divisible
+por un numero par que por uno impar.
+PD: Lo consulte con ChatGPT, segun él, lo que dije anteriormente no genera una
+diferencia significativa, ahora creo que lo que mas impacto genera es el echo de
+que si bien se redujo en numero a la mitad, ahora por cada numero hay que 
+realizar un next, lo que le agrega un if a cada iteracion.

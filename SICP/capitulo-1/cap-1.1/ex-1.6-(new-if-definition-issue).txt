@@ -1,0 +1,40 @@
+-------------------------------- Exercise 1.6 ----------------------------------
+Alyssa P. Hacker doesn't see why if needs to be provided as a special form. 
+"Why can't I just define it as an ordinary procedure in terms of cond?" she 
+asks. Alyssa's friend Eva Lu Ator claims this can indeed be done, and she 
+defines a new version of if:
+
+(define (new-if predicate then-clause else-clause)
+  (cond (predicate then-clause)
+        (else else-clause)))
+
+Eva demonstrates the program for Alyssa:
+
+(new-if (= 2 3) 0 5)
+; Evaluates to 5
+
+(new-if (= 1 1) 0 5)
+; Evaluates to 0
+
+Delighted, Alyssa uses new-if to rewrite the square-root program:
+
+(define (sqrt-iter guess x)
+  (new-if (good-enough? guess x)
+          guess
+          (sqrt-iter (improve guess x)
+                     x)))
+
+What happens when Alyssa attempts to use this to compute square roots? Explain.
+
+When Alyssa attempts to use `new-if` in the `sqrt-iter` function, a problem 
+arises because `new-if` is defined as a regular procedure and not as a special 
+form. In a regular procedure, both `then-clause` and `else-clause` are evaluated 
+before the `cond` expression is evaluated. Therefore, in the context of 
+`sqrt-iter`, the `else-clause` (which is the recursive call to `sqrt-iter`) 
+would be evaluated before checking the predicate. This leads to infinite 
+recursion as the `guess` is never properly evaluated, resulting in a loop 
+similar to what happens in Exercise 1.5 due to the evaluation order.
+
+This demonstrates why `if` needs to be a special form: it allows for 
+short-circuit evaluation, where only the clause corresponding to the result of 
+the predicate is evaluated.

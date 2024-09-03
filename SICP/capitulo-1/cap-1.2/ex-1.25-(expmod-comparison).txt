@@ -1,0 +1,36 @@
+-------------------------------- Exercise 1.25 ---------------------------------  
+Alyssa P. Hacker complains that we went to a lot of extra work in writing 
+expmod. After all, she says, since we already know how to compute exponentials, 
+we could have simply written
+
+(define (expmod base exp m)
+  (remainder (fast-expt base exp) m))
+
+Is she correct? Would this procedure serve as well for our fast prime tester? 
+Explain.
+
+Codigo completo de ambos porcedimientos
+Alyssa------------------------------------------------
+(define (expmod base exp m)
+  (remainder (fast-expt base exp) m))
+(define (fast-expt b exp)
+  (cond ((= exp 0) 1)
+        ((even? exp) (square (fast-expt b (/ exp 2))))
+        (else (* b (fast-expt b (- exp 1))))))
+
+Origina----------------------------------------------
+(define (expmod base exp m)
+  (cond ((= exp 0) 1)
+        ((even? exp)
+         (remainder (square (expmod base (/ exp 2) m))
+                    m))
+        (else
+         (remainder (* base (expmod base (- exp 1) m))
+                    m))))        
+
+Si bien ambos funcionan correctamente (en la nota 46 se explica que es valido)
+la mayor diferencia radica en que el definido por Alyssa primero calcular el 
+exponente y luego calcular el resto, mientras que en el original, a lo sumo se 
+calcula el resto,del cuadrado de lo devuelto por la funcion recursiva, lo que 
+hace que siempre se manejen numeros pequeños, evitando así un posible
+desbordamiento en caso de tener que utilizar numeros muy muy grandes :)
