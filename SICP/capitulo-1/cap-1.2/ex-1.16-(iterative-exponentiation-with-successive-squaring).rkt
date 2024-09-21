@@ -12,13 +12,19 @@
 
 (define (iter-expt b n)
   (define (iter b n a)
-     ; Caso base: cuando n es 0, devuelve el resultado acumulado a
     (cond ((= n 0) a)
-          ; Cuando n es par, eleva al cuadrado la base y divide el exponente entre 2
-          ((even? n) (iter b (/ n 2) (* (square b) a)))
-          ; Cuando n es impar, multiplica el resultado acumulado por la base y decrementa el exponente
-          ((> n 1) (iter b (- n 1) (* b a)))
-          (else a)))
+          ((even? n) (iter (square b) (/ n 2) a))
+          (else (iter b (- n 1) (* b a)))))
   (iter b n 1))
+  
+(define (even? n)
+  (= (remainder n 2) 0))
 
 (define (square x) (* x x))
+
+(define (tests i)
+   (if (= i 16)
+       0
+       (begin (display (iter-expt 2 i)) (newline) (tests (+ i 1)))))
+  (tests 0)
+    
