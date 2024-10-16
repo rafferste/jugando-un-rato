@@ -1,0 +1,52 @@
+------------------------------- Exercise 2.13 ----------------------------------  
+Show that under the assumption of small percentage tolerances there is a simple 
+formula for the approximate percentage tolerance of the product of two intervals 
+in terms of the tolerances of the factors. You may simplify the problem by 
+assuming that all numbers are positive.
+
+Cuando la tolerancia es pequeña podemos suponer que si el centro es positivo,
+tanto el limite inferior y el superior seran positivo, de igual forma si el
+centro es negativo, solo habria problemas cuando vale cero, ahi tendriamos que 
+analizar varios casos, pero aun asi se sigue simplificando mucho la cosa, 
+entonces vamos a descubrir una formula para representar la tolerancia de una 
+multiplicacion cuando son pequeñas
+
+Sea x, y numeros positivos y sea %x, %y las tolerancias porcentuales 
+respectivamente, entonces tenemos que:
+
+(x ; %x) * (y ; %y)
+
+Δx = (%x/100) * x 
+Δy = (%y/100) * y
+
+[(x - Δx) ; (x + Δx)] * [(y - Δy) ; (y + Δy)]
+
+[(x - Δx)*(y - Δy) ; (x + Δx)*(y + Δy)]
+
+[(x*y - x*Δy - Δx*y + Δx*Δy) ; (x*y + x*Δy + Δx*y + Δx*Δy)]
+
+Como Δx, Δy son valores menores a 1, la multiplicacion de ambos dara un numero 
+aún mas pequeño por lo que podemos aproximar Δx*Δy = 0. De esta forma podemos 
+generalizar la formula de la multiplicacion de la siguiente forma:
+
+[(x*y - (x*Δy + Δx*y) ; (x*y + (x*Δy + Δx*y)]
+
+Podemos definir Δz = (x*Δy + Δx*y)
+
+(x ; %x) * (y ; %y) = [x*y ; Δz]
+
+Siendo tambien:
+
+Δz = (%z) * x * y
+%z = Δz/(x*y)
+
+Remplazando Δz
+
+%z = (x*Δy + Δx*y)/(x*y)
+
+%z = Δy/y + Δx/x
+
+%z = %y + %x
+
+
+

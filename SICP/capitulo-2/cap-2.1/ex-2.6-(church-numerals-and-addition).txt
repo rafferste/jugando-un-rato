@@ -1,0 +1,44 @@
+------------------------------- Exercise 2.6 -----------------------------------   
+In case representing pairs as procedures wasn't mind-boggling enough, consider 
+that, in a language that can manipulate procedures, we can get by without 
+numbers (at least insofar as nonnegative integers are concerned) by 
+implementing 0 and the operation of adding 1 as
+
+(define (add-1 n) (lambda (f) (lambda (x) (f ((n f) x)))))
+
+(add-1 zero)
+
+(add-1 (lambda (f) (lambda (x) x)))
+
+(lambda (f) (lambda (x) (f (((lambda (f') (lambda (x) x)) f) x))))
+			    ********************************
+
+(lambda (f) (lambda (x) (f ((lambda (x) x) x))))
+	                   ******************
+
+(lambda (f) (lambda (x) (f x))) ---> = one
+
+--------------------------------------------------------------------------------
+(define one (lambda (f') (lambda (x) (f' x))))
+
+(add-1 one)
+
+(lambda (f) (lambda (x) (f ((one f) x))))
+
+(lambda (f) (lambda (x) (f (((lambda (f') (lambda (x) (f' x))) f) x)))))
+			    *************************************
+
+(lambda (f) (lambda (x) (f ((lambda (x) (f x)) x)))
+			   **********************
+
+(lambda (f) (lambda (x) (f (f x)))) ---> = two
+
+--------------------------------------------------------------------------------
+(define two (lambda (f) (lambda (x) (f (f x)))))
+
+(define (+ a b)
+    (lambda (f) 
+        (lambda (x) 
+            ((a f) ((b f) x)))))
+
+

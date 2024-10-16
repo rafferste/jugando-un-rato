@@ -1,0 +1,46 @@
+------------------------------- Exercise 2.9 -----------------------------------   
+The width of an interval is half of the difference between its upper and lower
+bounds. The width is a measure of the uncertainty of the number specified by
+the interval. For some arithmetic operations the width of the result of
+combining two intervals is a function only of the widths of the argument
+intervals, whereas for others the width of the combination is not a function
+of the widths of the argument intervals. Show that the width of the sum (or
+difference) of two intervals is a function only of the widths of the intervals
+being added (or subtracted). Give examples to show that this is not true for
+multiplication or division.
+
+Sea x el valor de una medicion y #x el error de dicha medicion (x ± Δx), 
+entonces tenemos que el intervalo de confiaza es [(x - Δx) ; (x + Δx)], Sea de 
+igual forma y el valor de una medicion y Δy el error de dicha medicion (y ± Δy), 
+tenemos que el intervalo de confianza es [(y - Δy) ; (y + Δy)].
+
+Ahora si porcedemos a sumar los dos intervalos tenemos que:
+(x ± Δx) + (y ± Δy)
+[(x - Δx) ; (x + Δx)] + [(y - Δy) ; (y + Δy)]
+[(x - Δx)+(y - Δy) ; (x + Δx)+(y + Δy)]
+[(x + y - Δx - Δy) ; (x + y + Δx + Δy)]
+[(x+y)-(Δx+Δy) ; (x+y)+(Δx+Δy)]
+[(x+y) ± (Δx+Δy)]
+
+Asi queda demostrado que la suma del limite inferior de ambas mediciones y el 
+limite superior es igual a sumar el "width" (aca llamado error) de ambas 
+mediciones, de forma similar sucede con la resta.
+
+Para demostrar que no se cumple este procedimiento con la multiplicacion 
+un contraejemplo:
+
+supongamos que tenemos la multiplicacion de los intervalos formados por:
+x = -0.5
+Δx = 2.5
+y = 1.5
+Δy = 2.5
+o lo que es lo mismo:
+Intervalo de x =[−3,2]
+Intervalo de y =[−1,4]
+
+el limite inferior resultante de la multiplicacion no será ((-3)*(-1) = 3)
+sinó que será ((-3)*4 = (-12)). Esto de muestra que no va a existir una sola 
+regla para definir los intervalos de una multiplicacion, habria que definir 
+reglas en funcion de las posibles combinaciones que se generarian segun el 
+cuadrante donde se encuentren los puntos x e y. De forma similar sucede con la
+divición.

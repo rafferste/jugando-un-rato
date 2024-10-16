@@ -1,0 +1,29 @@
+-------------------------------- Exercise 2.16 ---------------------------------
+Explain, in general, why equivalent algebraic expressions may lead to different 
+answers. Can you devise an interval-arithmetic package that does not have this 
+shortcoming, or is this task impossible? (Warning: This problem is very 
+difficult.)
+
+En general, las diferencias en los resultados de expresiones algebraicamente 
+equivalentes pueden atribuirse a la manera en que se calculan las incertidumbres 
+en la aritmética de intervalos. En aritmética común, multiplicar x/x mantiene la 
+igualdad; sin embargo, en el contexto de intervalos, esta operación implica 
+realizar operaciones adicionales que pueden aumentar la propagación del error. 
+Cada operación adicional introduce su propia incertidumbre, lo que resulta en un 
+intervalo más amplio y, por ende, en un menor grado de certeza.
+
+Lo ideal sería estructurar las expresiones de manera que se minimicen las 
+repeticiones de intervalos. Sin embargo, desarrollar un programa que simplifique 
+expresiones para reducir este tipo de redundancias es una tarea compleja. No 
+solo sería necesario identificar expresiones equivalentes, sino también decidir 
+cuál intervalo repetir cuando no se pueden eliminar todos. Esta decisión depende 
+de la operación específica en la que se encuentren implicados los intervalos.
+
+Además depende el caso habria que analizar el costo computacional de realizar 
+todas estas reducciones versus la mejora obtenida en la propagación del error.
+
+En conclusión, aunque se puede aspirar a diseñar un paquete de aritmética de 
+intervalos que minimice la propagación del error mediante una reducción 
+cuidadosa de las operaciones, la tarea es difícil debido a la naturaleza 
+intrínseca de las operaciones y la estructura de las expresiones algebraicas.
+

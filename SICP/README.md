@@ -14,3 +14,11 @@
 - [Capitulo 1.1](/SICP/capitulo-1/cap-1.1/)
 * [Capitulo 1.2](/SICP/capitulo-1/cap-1.2/)
 - [Capitulo 1.3](/SICP/capitulo-1/cap-1.3/)
+
+## Capitulo 2
+### Clases: 
+- **Berkeley** (9, 10, 11, 12, 13, 14, 15, 16, 17)
+* **MIT** (2B, 3A, 3B, 4A, 4B)
+
+### Ejercicios del libro
+- [Capitulo 2.1](/SICP/capitulo-2/cap-2.1/)
