@@ -22,3 +22,4 @@
 
 ### Ejercicios del libro
 - [Capitulo 2.1](/SICP/capitulo-2/cap-2.1/)
+* [Capitulo 2.2](/SICP/capitulo-2/cap-2.2/)
