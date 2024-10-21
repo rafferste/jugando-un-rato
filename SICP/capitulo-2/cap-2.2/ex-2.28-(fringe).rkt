@@ -13,11 +13,7 @@
 ; (1 2 3 4 1 2 3 4)
 
 (define (fringe tree)
-  ; Caso base
   (cond ((null? tree) nil)
-        ; Cuando el car de tree es una lista...
-        ((list? (car tree))
-         ; aplica append a ambas partes de forma recursiva
-         (append (fringe (car tree)) (fringe (cdr tree))))
-        ; cuando es un elemento individual simplemento lo uno y sigo 
-        (else (append (list (car tree)) (fringe (cdr tree)))))) 
+        ((not (pair? tree)) (list tree))
+        (else (append (fringe (car tree))
+                      (fringe (cdr tree)))))) 

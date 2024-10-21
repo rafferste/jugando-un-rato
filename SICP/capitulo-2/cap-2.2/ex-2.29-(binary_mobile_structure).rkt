@@ -45,10 +45,22 @@
 ; hanging off its branches is balanced. Design a predicate that tests whether a
 ; binary mobile is balanced.
 
-
-
+(define (balanced? m)
+  (let ((left (left-branch m))
+        (right (right-branch m)))
+    (define (torque branch)
+      (* (branch-length branch) (if (pair? (branch-structure branch))
+                                    (total-weight (branch-structure branch))
+                                    (branch-structure branch))))
     
-
+    (and (= (torque left) (torque right))
+         (if (pair? (branch-structure left))
+             (balanced? (branch-structure left))
+             #t)
+         (if (pair? (branch-structure right))
+             (balanced? (branch-structure right))
+             #t))))
+    
 ; d.  Suppose we change the representation of mobiles so that the constructors
 ; are  
 
@@ -60,6 +72,12 @@
 ; How much do you need to change your programs to convert to the new
 ; representation?
 
+; Deberia actualizar los selectores nada mas, ya que el resto de los
+; procedimientos solo utilizan estos, no utilizan make para nada
+(define (left-branch2 m) (car m))
+(define (right-branch2 m) (cdr m))
+(define (branch-length2 m) (car m))
+(define (branch-structure2 m) (cdr m))  
 
 ; Pruebas ---------------------------------------------------------------------
 ; Crear algunos ejemplos de móviles para probar total-weight.
