@@ -1,6 +1,6 @@
 # Structure and Interpretation of Computer Programs (SICP)
 
-Este repositorio contiene mi progreso en el estudio del libro **SICP**, complementado con las clases de **MIT** y **Berkeley** que explican el contenido. Mi objetivo es completar todos los ejercicios del libro.
+Este repositorio contiene mi progreso en el estudio del libro **SICP**, complementado con las clases de **MIT** y **Berkeley** que explican el contenido. Mi objetivo es resolver todos los ejercicios del libro.
 
 ## Referencias:
 ### Clases:
