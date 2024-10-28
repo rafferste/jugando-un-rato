@@ -1,0 +1,48 @@
+-------------------------------- Exercise 2.43 ---------------------------------
+Louis Reasoner is having a terrible time doing exercise 2.42. His queens 
+procedure seems to work, but it runs extremely slowly. (Louis never does manage 
+to wait long enough for it to solve even the 6× 6 case.) When Louis asks Eva Lu 
+Ator for help, she points out that he has interchanged the order of the nested 
+mappings in the flatmap, writing it as
+
+(flatmap
+ (lambda (new-row)
+   (map (lambda (rest-of-queens)
+          (adjoin-position new-row k rest-of-queens))
+        (queen-cols (- k 1))))
+ (enumerate-interval 1 board-size))
+
+Explain why this interchange makes the program run slowly. Estimate how long it 
+will take Louis's program to solve the eight-queens puzzle, assuming that the 
+program in exercise 2.42 solves the puzzle in time T. 
+
+Lo que Louis hizo al intercambiar el orden de los mapeos es que ahora está 
+generando todas las posibles combinaciones de reinas para cada fila (y son 
+board-size filas) antes de haber completado el proceso de colocar las reinas en 
+las columnas anteriores. Esto provoca una explosión en el número de 
+combinaciones que deben evaluarse.
+
+En la solución correcta (de Eva), el programa primero genera todas las 
+combinaciones posibles de las primeras k-1 columnas de reinas (es decir, todas 
+las maneras de colocar k-1 reinas), y luego, para cada una de esas 
+combinaciones, prueba agregar una reina en la k-ésima columna en todas las 
+posibles filas .
+
+En la solución de Louis, se hace lo opuesto: para cada fila posible en la 
+k-ésima columna, se generan todas las combinaciones de las primeras k-1 
+columnas, lo que incrementa innecesariamente el trabajo, porque para cada 
+nueva fila en la columna k se reconstruyen desde cero todas las combinaciones 
+de reinas anteriores.
+
+Esto genera una repetición innecesaria de trabajo: en lugar de explorar una 
+vez todas las combinaciones de k-1 reinas, lo hace repetidamente para cada 
+fila posible en la k-ésima columna, creando así una cantidad de operaciones 
+que crece factorialmente
+
+Ahi recide la mayor diferencia, Louis tiene un procedimiento linealmente 
+recursivo board-size factorial veces mientras que Eva tiene un procedimiento 
+linealmente recursivo 1 sola vez
+
+Por lo que tardaria T * board-size!
+En caso de que el tablero sea board-size = 8
+T * 8! => 40320*T 

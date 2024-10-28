@@ -45,10 +45,44 @@
 ; whether the new queen is safe -- the other queens are already guaranteed safe
 ; with respect to each other.)
 
-; (define (empty-board))
-; (define (safe? k positions))
-; (define (adjoin-position new-row k rest-of-queens))
+(define empty-board nil)
 
+; Verifica si la reina en la columna k está en una posición segura respecto a
+; las reinas ya colocadas. Comprueba que no haya conflicto en la misma fila o
+; en las diagonales.
+(define (safe? k positions)
+  (let ((row car)
+        (col cadr)
+        (new-queen (car positions)) 
+        (rest-of-queens (cdr positions)))
+    
+    (define (check-row? rest-queens)
+      (cond ((null? rest-queens) #f)
+            ((= (row new-queen) (row (car rest-queens))) #t)
+            (else (check-row? (cdr rest-queens)))))
+
+    ; downward-proj y upward-proj representan las proyecciones diagonales hacia
+    ; abajo y hacia arriba, respectivamente, de la reina de rest-queens.
+    (define (check-diagonal? rest-queens)
+      (if (null? rest-queens)
+          #f
+          (let  ((downward-proj
+                  (+ (row (car rest-queens))
+                     (- (col new-queen) (col (car rest-queens)))))
+                 (upward-proj
+                  (- (row (car rest-queens))
+                     (- (col new-queen) (col (car rest-queens))))))
+            
+            (if (or (= downward-proj (row new-queen))
+                    (= upward-proj (row new-queen)))
+                #t
+                (check-diagonal? (cdr rest-queens))))))
+    
+    (and (not (check-row? rest-of-queens))
+         (not (check-diagonal? rest-of-queens)))))
+
+(define (adjoin-position new-row k rest-of-queens)
+  (cons (list new-row k) rest-of-queens))
 
 ; Codigo viejo ----------------------------------------------------------------
 (define (filter predicate sequence)
